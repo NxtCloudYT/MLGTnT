@@ -20,12 +20,15 @@ class TNTCommand extends Command
 
     public function execute(CommandSender $sender, string $commandLabel, array $args)
     {
-        if ($sender instanceof Player) {
+        if ($sender->isOp() or $sender->hasPermission("tnt.get")) {
+            if ($sender instanceof Player) {
 
-            $sender->sendMessage(Main::PREFIX . "§a+ 1 MLGTnT");
-            $sender->getInventory()->addItem(Item::get(Item::TNT, 0, 1)->setCustomName("§r§cMLGTnT"));
+                $sender->sendMessage(Main::PREFIX . "§a+ 1 MLGTnT");
+                $sender->getInventory()->addItem(Item::get(Item::TNT, 0, 1)->setCustomName("§r§cMLGTnT"));
 
+            }
+        } else {
+            $sender->sendMessage("§cYou don't have the tnt.get Permission!");
         }
     }
-
 }
